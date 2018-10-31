@@ -9,7 +9,7 @@ JSON log file is still recommended way to go
 from __future__ import absolute_import, division
 
 import json
-from StringIO import StringIO
+from io import StringIO
 
 from twisted.internet import reactor
 from twisted.internet.ssl import ClientContextFactory
@@ -29,7 +29,8 @@ class Output(cowrie.core.output.Output):
         Optional: index, sourcetype, source, host
         """
         self.token = CONFIG.get('output_splunk', 'token')
-        self.url = bytes(CONFIG.get('output_splunk', 'url'))
+        self.url = bytes(CONFIG.get('output_splunk', 'url'),"utf-8")
+
         try:
             self.index = CONFIG.get('output_splunk', 'index')
         except Exception:
